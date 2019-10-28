@@ -65,6 +65,9 @@ extern "C" {
   JNIEXPORT void JNICALL Java_edu_berkeley_cs_rise_opaque_execution_SGXEnclave_RemoteAttestation3(
     JNIEnv *, jobject, jlong, jbyteArray);
 
+  JNIEXPORT void JNICALL Java_edu_berkeley_cs_rise_opaque_execution_SGXEnclave_SetupTLSServer(
+    JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

@@ -12,6 +12,7 @@
 #include "json.hpp"
 
 #include "ServiceProvider.h"
+#include "tls_client.h"
 
 // Your 16-byte Service Provider ID (SPID), assigned by Intel.
 const uint8_t spid[] = {0xA4,0x62,0x09,0x2E,0x1B,0x59,0x26,0xDF,0x44,0x69,0xD5,0x61,0xE2,0x54,0xB0,0x1E};
@@ -427,4 +428,8 @@ std::unique_ptr<ra_msg4_t> ServiceProvider::process_msg3(
                                      nullptr, 0,
                                      &msg4->shared_key_mac));
   return msg4;
+}
+
+void ServiceProvider::send_shared_key_to_worker(const std::string &workerIP, const std::string &workerPort) {
+  tls_client_send_data(workerIP, workerPort, workerPort);
 }

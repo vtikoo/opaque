@@ -4,6 +4,8 @@ project(OpaqueEnclave)
 
 enable_language(ASM)
 
+find_package(OpenEnclave CONFIG REQUIRED)
+
 option(FLATBUFFERS_LIB_DIR "Location of Flatbuffers library headers.")
 option(FLATBUFFERS_GEN_CPP_DIR "Location of Flatbuffers generated C++ files.")
 
@@ -21,6 +23,7 @@ include_directories(ServiceProvider)
 include_directories(${FLATBUFFERS_LIB_DIR})
 include_directories(${FLATBUFFERS_GEN_CPP_DIR})
 include_directories("$ENV{SGX_SDK}/include")
+include_directories("/opt/openenclave/include")
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")

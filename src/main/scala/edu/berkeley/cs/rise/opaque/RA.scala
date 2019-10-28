@@ -17,6 +17,8 @@
 
 package edu.berkeley.cs.rise.opaque
 
+import java.net._
+
 import org.apache.spark.SparkContext
 import org.apache.spark.internal.Logging
 
@@ -36,6 +38,12 @@ object RA extends Logging {
       sp.Init(Utils.sharedKey, intelCert)
 
       val epids = rdd.mapPartitions { _ =>
+        
+
+        val localhost: InetAddress = InetAddress.getLocalHost
+        val localIpAddress: String = localhost.getHostAddress
+
+        println(s"localIpAddress = $localIpAddress")
         val (enclave, eid) = Utils.initEnclave()
         val epid = enclave.RemoteAttestation0(eid)
         Iterator(epid)

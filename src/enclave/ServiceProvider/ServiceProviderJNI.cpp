@@ -111,3 +111,27 @@ JNIEXPORT jbyteArray JNICALL Java_edu_berkeley_cs_rise_opaque_execution_SP_SPPro
 
   return ret;
 }
+
+
+JNIEXPORT void JNICALL Java_edu_berkeley_cs_rise_opaque_execution_SP_SendSharedKeyToWorker(
+  JNIEnv *env, jobject obj, jstring workerIP, jstring workerPort) {
+  (void)obj;
+
+  const char *workerIP_str = env->GetStringUTFChars(workerIP, nullptr);
+  size_t workerIP_len = static_cast<size_t>(env->GetStringUTFLength(workerIP));
+  const char *workerPort_str = env->GetStringUTFChars(workerPort, nullptr);
+  size_t workerPort_len = static_cast<size_t>(env->GetStringUTFLength(workerPort));
+  
+  try {
+    service_provider.send_shared_key_to_worker(
+      std::string(workerIP_str, workerIP_len),
+      std::string(workerPort_str, workerPort_len)
+      );
+  } catch (const std::runtime_error &e) {
+    jni_throw(env, e.what());
+  }
+
+  env->ReleaseStringUTFChars(workerIP, workerIP_str);
+  env->ReleaseStringUTFChars(workerPort, workerPort_str);
+
+}

@@ -67,6 +67,9 @@ public:
   std::unique_ptr<ra_msg4_t> process_msg3(
     sgx_ra_msg3_t *msg3, uint32_t msg3_size, uint32_t *msg4_size);
 
+  
+  void send_shared_key_to_worker(const std::string &workerIP, const std::string &workerPort);
+
 private:
   void connect_to_ias_helper(const std::string &ias_report_signing_ca_file);
 
